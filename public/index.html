@@ -1,0 +1,54 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+<script
+			  src="https://code.jquery.com/jquery-3.1.0.slim.min.js"
+			  integrity="sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8="
+			  crossorigin="anonymous"></script>
+<style>
+#container {
+    margin: 0px auto;
+    width: 500px;
+    height: 375px;
+    border: 10px #333 solid;
+}
+#videoElement {
+    width: 500px;
+    height: 375px;
+    background-color: #666;
+}
+</style>
+  <body>
+    <h1>Record</h1>
+    <buttontype="button">Click Me!</button>
+    <div id="container">
+    	<video class="video" controls id="videoElement">
+    	</video>
+    </div>
+  </body>
+  <script>
+
+  var video = document.querySelector("#videoElement");
+
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mediaDevices.getUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+
+  if (navigator.getUserMedia) {
+    navigator.getUserMedia({audio: true ,video: true}, handleVideo, videoError);
+  }
+
+  function handleVideo(stream) {
+    video.src = window.URL.createObjectURL(stream);
+  }
+
+  function videoError(e) {
+    // do something
+  }
+
+  $('.video').click(function(){this.paused?this.play():this.pause();});
+  console.log("hmmk");
+  </script>
+</html>
